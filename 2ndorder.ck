@@ -17,20 +17,6 @@ if( me.args() < 10 )
     me.exit();
 }
 
-// instantiate hid message
-Hid hi;
-HidMsg msg;
-
-// device #
-0 => int device;
-
-// open keyboard (get device number from command line)
-if( !hi.openKeyboard(device) ) 
-{
-    me.exit();
-}
-<<< "keyboard '" + hi.name() + "' ready", "" >>>;
-
 // Create multidimensional array
 float speakCoeff[8][9];
 
