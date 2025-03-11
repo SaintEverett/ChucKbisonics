@@ -1,3 +1,3 @@
-. . . ///ChucKbisonics\\\ . . .
+These repo contains various files used to make calculations regarding ambisonics, encode, decode and other miscellaneous scripts.
 
-This is a repo containing anything I've done regarding ambisonic encoding/decoding/processing inside of ChucK. It is being maintained, unless stated as deprecated.
+Feel free to dig through, thing's should be labeled.
