@@ -2,9 +2,9 @@
 * 
 *   This class is used to quickly calculate the cartesian coordinates of an object within a 3D plane given elevation and directional angles.
 *   These coordinates can be useful in finding speaker coefficients for Ambisonic decoding, or for encoding sounds for Ambisonics.
-* 
-*
-*
+*   Math for finding these coefficients was informed by my knowledge of spherical harmonics as well as Angelo Farina's website, which can be found here:
+*   https://www.angelofarina.it/Aurora/HOA_explicit_formulas.htm
+*   
 */
 
  class ambiMathPolar
