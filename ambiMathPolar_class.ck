@@ -7,10 +7,11 @@
 *
 */
 
- class ambiMath 
+ class ambiMathPolar
  {
     float W_CONSTANT;
     float SQ34_CONSTANT;
+    int mode;
     (1/Math.sqrt(2)) => W_CONSTANT;
     0.86602540 => SQ34_CONSTANT; // constant often used in V,T,R,S,U
     fun float degreeRad(float angle)
@@ -129,7 +130,7 @@
     }
 }
 
-ambiMath mathWiz;
+ambiMathPolar mathWiz;
 
 0 => float myElevation;
 0 => float myDirection;
