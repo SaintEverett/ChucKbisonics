@@ -9,8 +9,10 @@
 
  class ambiMath 
  {
-    (1/Math.sqrt(2)) => float W_CONSTANT;
-    Math.sqrt(3/4) => float SQ34_CONSTANT; // constant often used in V,T,R,S,U
+    float W_CONSTANT;
+    float SQ34_CONSTANT;
+    (1/Math.sqrt(2)) => W_CONSTANT;
+    0.86602540 => SQ34_CONSTANT; // constant often used in V,T,R,S,U
     fun float degreeRad(float angle)
     {
         angle * (pi/180) => angle;
@@ -32,11 +34,11 @@
     // needed for 2nd order
     fun float vCoordinate(float elevation, float direction)
     {
-        return SQ34_CONSTANT * Math.sin(2*degreeRad(direction)) * Math.pow(Math.cos(degreeRad(elevation)),2);
+        return SQ34_CONSTANT * Math.sin(2 * (degreeRad(direction))) * Math.pow(Math.cos(degreeRad(elevation)),2);
     }
     fun float tCoordinate(float elevation, float direction)
     {
-        return SQ34_CONSTANT * Math.sin(degreeRad(direction)) * Math.sin(2 * degreeRad(elevation));
+        return SQ34_CONSTANT * Math.sin(degreeRad(direction)) * Math.sin(2 * (degreeRad(elevation)));
     }
     fun float rCoordinate(float elevation, float direction)
     {
@@ -133,6 +135,7 @@ ambiMath mathWiz;
 0 => float myDirection;
 ["X","Y","Z","W","V","T","R","S","U","Q","O","M","K","L","N","P"] @=> string myLetters[];
 float myCoordinates[16]; // X, Y, Z, W, V, T, R, S, U, Q, O, M, K, L, N, P
+
 for(1=>int j; j < 10; j++)
 {
     mathWiz.coordinates(myElevation, myDirection, myCoordinates, 3);
@@ -143,6 +146,21 @@ for(1=>int j; j < 10; j++)
         if(i%4 == 3) cherr <= IO.newline();
     }
     cherr <= myDirection <= "  " <= myElevation <= IO.newline();
+    13.678*j => myDirection;
+    15.735123*j => myElevation;
+    1::second => now;
+}
+for(1=>int j; j > 10; j--)
+{
+    mathWiz.coordinates(myElevation, myDirection, myCoordinates, 3);
+    cherr <= IO.newline();
+    for(int i; i < myCoordinates.size(); i++)
+    {
+        cherr <= myLetters[i] <= ": " <= myCoordinates[i] <= "   "; 
+        if(i%4 == 3) cherr <= IO.newline();
+    }
+    cherr <= myDirection <= "  " <= myElevation <= IO.newline();
     45*j => myDirection;
+    15*j => myElevation;
     1::second => now;
 }
