@@ -5,6 +5,7 @@
 *   Math for finding these coefficients was informed by my knowledge of spherical harmonics as well as Angelo Farina's website, which can be found here:
 *   https://www.angelofarina.it/Aurora/HOA_explicit_formulas.htm
 *   
+*   Todo= add additional argument for radius, which will be [0.0,1.0], and is simply a scalar to all coordinates.;
 */
 
  class ambiMathPolar
