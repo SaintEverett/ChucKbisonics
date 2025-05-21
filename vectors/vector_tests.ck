@@ -97,7 +97,15 @@ class ambiMathCartesian
     }
 }
 
+int device;
+OscIn mailbox[2];
+OscMsg letterOpener;
+Hid keyboard;
+HidMsg msg;
+keyboard.openKeyboard(device);
+
 ambiMathCartesian mathWiz;
+Event goforit;
 float coordinates[2][16]; // x,y,z,w,v,t,r,s,u,q,o,m,k,l,n,p
 ["X","Y","Z","W","V","T","R","S","U","Q","O","M","K","L","N","P"] @=> string myLetters[];
 @(6,8,26) => vec3 placement;
@@ -107,4 +115,67 @@ mathWiz.coordinates(placement.x, placement.y, placement.z, coordinates[0], 3);
 for(int i; i < coordinates[0].size(); i++)
 {
     cherr <= myLetters[i] <= ": " <= coordinates[0][i] <= IO.newline();
+}
+
+spork ~ listenHID();
+
+while(true)
+{
+    goforit => now;
+    <<< placement >>>;
+    mathWiz.coordinates(placement.x, placement.y, placement.z, coordinates[0], 3);
+    for(int i; i < coordinates[0].size(); i++)
+    {
+        cherr <= myLetters[i] <= ": " <= coordinates[0][i] <= IO.newline();
+    }
+}
+
+fun void listenHID()
+{
+    float tempX;
+    float tempY;
+    float tempZ;
+    while(true)
+    {
+        keyboard => now;
+        while(keyboard.recv(msg))
+        {
+            if(msg.isButtonDown())
+            {
+                if(msg.key == 82)
+                {
+                    tempX + 0.01 => tempX;
+                }
+                else if(msg.key == 81)
+                {
+                    tempX - 0.01 => tempX;
+                }
+                else if(msg.key == 80)
+                {
+                    tempY - 0.01 => tempY;
+                }
+                else if(msg.key == 79)
+                {
+                    tempY + 0.01 => tempY;
+                }
+                else if(msg.key == 40)
+                {
+                    tempZ + 0.01 => tempZ;
+                }
+                else if(msg.key == 229)
+                {
+                    tempZ - 0.01 => tempZ;
+                }
+                else if(msg.key == 41)
+                {
+                    cherr <= "exiting" <= IO.newline();
+                    me.exit();
+                }
+                // cherr <= msg.key <= IO.newline();
+                // cherr <= "(" <= tempX <= ", " <= tempY <= ", " <= tempZ <= ")" <= IO.newline();
+                @(tempX, tempY, tempZ) => placement;
+                goforit.signal();
+            }
+        }
+    }
 }
